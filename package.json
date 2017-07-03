@@ -1,0 +1,34 @@
+{
+  "name": "devchallenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "kill": "for i in `vagrant global-status | grep virtualbox | awk '{ print $1 }'` ; do vagrant destroy $i -f ; done",
+    "generate-docs": "apidoc -i api/routes/ -i database/routes/ -i scrapper/routes/ -o docs/",
+    "test": "node_modules/.bin/mocha test",
+    "eslint": "./node_modules/.bin/eslint -c .eslintrc.js . --quiet --ignore-path .eslintignore"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "highland": "^2.10.5",
+    "moment": "^2.18.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "chai": "^4.0.0",
+    "diff": "^3.2.0",
+    "eslint": "^3.19.0",
+    "eslint-plugin-mocha": "^4.9.0",
+    "express": "^4.15.3",
+    "getport": "^0.1.0",
+    "mocha": "^3.4.2",
+    "mongoose": "^4.10.4",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "url-regex": "^4.1.0"
+  }
+}

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+export LC_ALL=C
+
+printf "install git"
+apt-get install git -y  2>&1
+
+printf "install nvm"
+export NVM_DIR="$HOME/.nvm" && (
+  git clone https://github.com/creationix/nvm.git "$NVM_DIR"  2>&1
+  cd "$NVM_DIR"
+  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin` 2>&1
+) && . "$NVM_DIR/nvm.sh"
+
+printf "Install node"
+nvm install 8.0  2>&1
+nvm use 8.0  2>&1
+
+cd /vagrant
+
+printf "setting environment variables"
+export API_HOST='localhost'
+export API_PORT=3000
+export DATABASE_HOST='localhost'
+export DATABASE_PORT=3001
+export SCRAPPER_HOST='localhost'
+export SCRAPPER_PORT=3002
+
+export CONNECTION_STRING='mongodb://localhost:27017/devChallenge'
+export INTERSERVICE_AUTHORIZATION='sdklfjhsf789Wyr2fSoV78sdf89gsEp98thazlcksdfsfs5s'
+
+printf "Installing npm dependencies"
+sudo npm install 2>&1
+sudo npm i -g apidoc 2>&1
+sudo npm i -g http-server 2>&1
+
+printf "Running tests"
+npm test
+
+printf "Starting app-container"
+npm start
